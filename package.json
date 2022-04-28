@@ -1,0 +1,19 @@
+{
+  "name": "appafteropensource",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc main.ts && node main"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/moment": "^2.13.0",
+    "date": "^1.0.2",
+    "moment": "^2.29.3",
+    "typescript": "^4.6.3",
+    "xlsx": "^0.18.5"
+  }
+}
