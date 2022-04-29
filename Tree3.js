@@ -11,7 +11,6 @@ var TreeN = /** @class */ (function () {
 var BinaryT = /** @class */ (function () {
     function BinaryT() {
         this.root = null;
-        // Remove
     }
     BinaryT.prototype.insert = function (value) {
         if (this.root === null) {
@@ -106,7 +105,24 @@ var BinaryT = /** @class */ (function () {
         else if (order == "bfs") {
             this.bfSearch();
         }
+        else {
+            console.log(this.root);
+        }
         // return this.root;
+    };
+    // Remove
+    // Invert
+    BinaryT.prototype.invertBT = function (root) {
+        if (root) {
+            var left = root.left;
+            root.left = root.right;
+            root.right = left;
+            this.invertBT(root.left);
+            this.invertBT(root.right);
+        }
+    };
+    BinaryT.prototype.invert = function () {
+        this.invertBT(this.root);
     };
     return BinaryT;
 }());
@@ -120,7 +136,9 @@ T.insert(10);
 T.insert(300);
 T.insert(400);
 T.insert(500);
-T.print('bfs');
 // T.print('preorder')
 // T.print('inorder')
 // T.print('postorder')
+T.print('bfs');
+T.invert();
+T.print('bfs');

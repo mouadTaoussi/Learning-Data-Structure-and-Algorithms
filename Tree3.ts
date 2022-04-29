@@ -119,11 +119,30 @@ class BinaryT {
 		else if (order == "bfs") {
 			this.bfSearch()
 		}	
+		else {
+			console.log(this.root)
+		}
 		// return this.root;
 	}
 	
 
 	// Remove
+
+	// Invert
+	invertBT(root : any) {
+		if (root) {
+			const left = root.left;
+
+			root.left = root.right;
+			root.right = left;
+
+			this.invertBT(root.left)
+			this.invertBT(root.right)
+		}
+	}
+	invert(){
+		this.invertBT(this.root)
+	}
 }
 
 const T: any = new BinaryT();
@@ -140,8 +159,12 @@ T.insert(400)
 T.insert(500)
 
 
-T.print('bfs')
 
 // T.print('preorder')
 // T.print('inorder')
 // T.print('postorder')
+T.print('bfs')
+
+T.invert()
+
+T.print('bfs')

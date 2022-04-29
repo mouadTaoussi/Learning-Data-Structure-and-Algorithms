@@ -51,6 +51,13 @@ class treeDS {
 		}
 		return element
 	}
+
+	remove() {
+
+	}
+	update() {
+		
+	}
 	print(){
 		// console.log(this.root)
 		this.traverse(this.root);
