@@ -79,6 +79,7 @@ class BinaryTree {
 		}
 	}
 
+
 	// BFS (Breadthe First Search)
 	public bfSearch(): void {
 		let root: any = this.root;
@@ -120,6 +121,88 @@ class BinaryTree {
 		}
 	}
 
+
+	// Min Max
+	public min(): void {
+		let current: any = this.root;
+
+		while (current.left != null) {
+			current = current.left;
+		}
+
+		console.log(current.value)
+	}
+	public max(): void {
+		let current: any = this.root;
+
+		while (current.right != null) {
+			current = current.right;
+		}
+
+		console.log(current.value)
+	}
+
+
+	// Height
+	public heightFrom(value: any) {
+		this.heightFromNode(value, this.root);
+	}
+	public heightFromNode(value: number, root: any, count: number = 0): any {
+		let countEdges: number = count;
+
+		if (root) {
+			countEdges++;
+			console.log(countEdges)
+			if (value < root.value) {
+				this.heightFromNode(value, root.left, countEdges)
+			}
+			else if (value > root.value) {
+				this.heightFromNode(value, root.right, countEdges)
+			}
+
+		}
+		return countEdges;
+	}
+	public height(): void {
+		
+	}
+
+	// Number of nodes
+	public nodesCount(): void {
+		let queue: any = [this.root];
+		let nodesCount: number = 0;
+
+		while(queue.length > 0){
+			const currentElement: any = queue.shift();
+			nodesCount++;
+
+			if (currentElement.left != null){
+				queue.push(currentElement.left);
+			}
+			if (currentElement.right != null) {
+				queue.push(currentElement.right);
+			}
+		}
+
+		console.log(nodesCount)
+	}
+
+	
+	// Invert
+	invertBT(root : any) {
+		if (root) {
+			const left = root.left;
+
+			root.left = root.right;
+			root.right = left;
+
+			this.invertBT(root.left)
+			this.invertBT(root.right)
+		}
+	}
+	invert(){
+		this.invertBT(this.root)
+	}
 }
 
 
@@ -139,8 +222,29 @@ T.insert(500)
 console.log(bfs)
 T.print(bfs)
 
-console.log('search')
+console.log('search value 300')
 T.search(300)
 
-console.log('search')
+console.log('BFS')
 T.bfSearch();
+
+console.log("Minimum value")
+T.min();
+
+console.log("Maximum value")
+T.max();
+
+console.log('Height from node 50')
+T.heightFrom(10)
+
+console.log('Nodes count')
+T.nodesCount();
+
+console.log('Invert Binary (BFS)')
+T.bfSearch()
+
+T.invert()
+console.log('inverted')
+T.bfSearch()
+
+

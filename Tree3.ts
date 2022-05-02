@@ -125,7 +125,49 @@ class BinaryT {
 		// return this.root;
 	}
 	
+	// Height
+	public heightFrom(value: any) {
+		this.heightFromNode(value, this.root);
+	}
+	public heightFromNode(value: number, root: any, count: number = 0): any {
+		let countEdges: number = count;
 
+		if (root) {
+			countEdges++;
+			console.log(countEdges)
+			if (value < root.value) {
+				this.heightFromNode(value, root.left, countEdges)
+			}
+			else if (value > root.value) {
+				this.heightFromNode(value, root.right, countEdges)
+			}
+
+		}
+		return countEdges;
+	}
+	public height(): void {
+		
+	}
+	// Number of nodes
+	public nodesCount(): void {
+		let queue: any = [this.root];
+		let nodesCount: number = 0;
+
+		while(queue.length > 0){
+			const currentElement: any = queue.shift();
+			nodesCount++;
+
+			if (currentElement.left != null){
+				queue.push(currentElement.left);
+			}
+			if (currentElement.right != null) {
+				queue.push(currentElement.right);
+			}
+		}
+
+		console.log(nodesCount)
+	}
+	
 	// Remove
 
 	// Invert
@@ -163,8 +205,11 @@ T.insert(500)
 // T.print('preorder')
 // T.print('inorder')
 // T.print('postorder')
+console.log('Height from node 50')
+T.heightFrom(10)
+
+console.log('Invert Binary (BFS)')
 T.print('bfs')
-
 T.invert()
-
+console.log('inverted')
 T.print('bfs')

@@ -120,10 +120,7 @@ class BlockChain {
 				const oldPrevNode = current.next.prev;
 
 				block_data.index = current.next.data.index;
-				// console.log(previous.next)
-				// console.log(current)
-				// current.next = new Block(block_data, current.next, previous);
-				// current.next.next.prev = new Block(block_data, current.next, previous);
+				// see below
 				current.next = new Block(block_data, current.next, current);
 				current.next.next.prev = new Block(block_data, current.next, current);
 
@@ -237,3 +234,8 @@ BlockChainInstance.removerNode(2)
 // BlockChainInstance.removerNode(5)
 // BlockChainInstance.removerNode(6)
 console.log(BlockChainInstance.blocks());
+
+// console.log(previous.next)
+// console.log(current)
+// current.next = new Block(block_data, current.next, previous);
+// current.next.next.prev = new Block(block_data, current.next, previous);
