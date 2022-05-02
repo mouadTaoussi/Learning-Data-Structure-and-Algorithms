@@ -16,7 +16,7 @@ class BinaryTree {
 	private root: any = null;
 	private size: number = 0;
 
-	public insert(value:number): void {
+	public insert(value:number) {
 		if (this.root === null) {
 			this.root = new NodeTree(value);
 		}else {
@@ -24,13 +24,19 @@ class BinaryTree {
 		}
 	}
 
-	public add(value: number, root: any): void {
+	public add(value: number, root: any) {
 		if (value < root.value) {
 			if (root.left == null) {
 				root.left = new NodeTree(value);
 			}
 			else {
 				this.add(value, root.left);
+				// Rotation AVL
+				const balanceFactor: number = this.getBalanceFactor();
+				console.log('Balance factor - left: ' + balanceFactor)
+				// if (balanceFactor > 1) {
+				// 	console.log('You have surpassed the balance factor!!! at Left: ' + balanceFactor)
+				// }
 			}
 		}
 		else if (value > root.value) {
@@ -39,13 +45,19 @@ class BinaryTree {
 			}
 			else {
 				this.add(value, root.right);
+				// Rotation AVL
+				const balanceFactor: number = this.getBalanceFactor();
+				console.log('Balance factor - right: ' + balanceFactor)
+				// if (balanceFactor < -1) {
+				// 	console.log('You have surpassed the balance factor!!! at Right: ' + balanceFactor)
+				// }
 			}
 		}
 	}
 
 	
 	// DFS Depth First Search
-	public print(order: 'preorder' | 'inorder' | 'postorder'): any {
+	public print(order: 'preorder' | 'inorder' | 'postorder') {
 		if (order == "preorder") {
 			this.preOrder(this.root)
 		}
@@ -57,21 +69,21 @@ class BinaryTree {
 		}		
 		// return this.root;
 	}
-	public preOrder(root: any): void {
+	public preOrder(root: any) {
 		if (root) {
 			console.log(root.value);
 			this.preOrder(root.left);
 			this.preOrder(root.right);
 		}
 	}
-	public inOrder(root: any): void {
+	public inOrder(root: any) {
 		if (root) {
 			this.inOrder(root.left);
 			console.log(root.value);
 			this.inOrder(root.right);
 		}
 	}
-	public postOrder(root: any): void {
+	public postOrder(root: any) {
 		if (root) {
 			this.postOrder(root.left);
 			this.postOrder(root.right);
@@ -81,7 +93,7 @@ class BinaryTree {
 
 
 	// BFS (Breadthe First Search)
-	public bfSearch(): void {
+	public bfSearch() {
 		let root: any = this.root;
 		let queue: any[] = [this.root];
 
@@ -103,7 +115,7 @@ class BinaryTree {
 
 
 	// Binary Search
-	public search(value: string): void {
+	public search(value: string) {
 		this.searchTraverse(value, this.root);
 	}
 	public searchTraverse(value: any, root: any): any{
@@ -123,52 +135,68 @@ class BinaryTree {
 
 
 	// Min Max
-	public min(): void {
+	public min() {
 		let current: any = this.root;
 
 		while (current.left != null) {
 			current = current.left;
 		}
 
-		console.log(current.value)
+		return current.value
 	}
-	public max(): void {
+	public max() {
 		let current: any = this.root;
 
 		while (current.right != null) {
 			current = current.right;
 		}
 
-		console.log(current.value)
+		return current.value
 	}
 
 
 	// Height
-	public heightFrom(value: any) {
-		this.heightFromNode(value, this.root);
+	public heightFromNodeRec(value: any) {
+		this.heightFrom(value, this.root);
 	}
-	public heightFromNode(value: number, root: any, count: number = 0): any {
+	public heightFromNode(value: any) {
+		let countEdges: number = 0;
+		let current: any = this.root;
+
+		while (current.left != null || current.right != null) {
+			countEdges++;
+			if (value < current.value) {
+				current = current.left
+			}
+			if (value > current.value) {
+				current = current.right
+			}
+
+		}
+
+		return countEdges;
+	}
+	public heightFrom(value: any, root: any, count: number = 0) {
 		let countEdges: number = count;
 
 		if (root) {
 			countEdges++;
-			console.log(countEdges)
+			console.log(countEdges - 1)
 			if (value < root.value) {
-				this.heightFromNode(value, root.left, countEdges)
+				this.heightFrom(value, root.left, countEdges)
 			}
 			else if (value > root.value) {
-				this.heightFromNode(value, root.right, countEdges)
+				this.heightFrom(value, root.right, countEdges)
 			}
 
 		}
-		return countEdges;
 	}
-	public height(): void {
+	public height() {
 		
 	}
 
 	// Number of nodes
-	public nodesCount(): void {
+	public nodesCount() {
 		let queue: any = [this.root];
 		let nodesCount: number = 0;
 
@@ -184,7 +212,7 @@ class BinaryTree {
 			}
 		}
 
-		console.log(nodesCount)
+		console.log(nodesCount);
 	}
 
 	
@@ -203,6 +231,15 @@ class BinaryTree {
 	invert(){
 		this.invertBT(this.root)
 	}
+
+	// AVL Tree
+	public getBalanceFactor() : number {
+		return this.heightFromNode(this.min()) - this.heightFromNode(this.max())
+	}
+	// LL
+	// LR
+	// RR
+	// RL
 }
 
 
@@ -215,36 +252,43 @@ T.insert(200)
 T.insert(50)
 T.insert(45)
 T.insert(10)
-T.insert(300)
-T.insert(400)
-T.insert(500)
+// T.insert(300)
+// T.insert(400)
+// T.insert(500)
+// Unbalanced binary tree
+// T.insert(600)
+// T.insert(700)
 
-console.log(bfs)
-T.print(bfs)
+// console.log(bfs)
+// T.print(bfs)
 
-console.log('search value 300')
-T.search(300)
+// console.log('search value 300')
+// T.search(300)
 
-console.log('BFS')
-T.bfSearch();
+// console.log('BFS')
+// T.bfSearch();
 
 console.log("Minimum value")
-T.min();
+console.log(T.min());
 
 console.log("Maximum value")
-T.max();
+console.log(T.max());
 
-console.log('Height from node 50')
-T.heightFrom(10)
+console.log('Height from node 10')
+// T.heightFromNodeRec(10)
+console.log(T.heightFromNode(10))
 
-console.log('Nodes count')
-T.nodesCount();
+console.log('Balance Factor')
+console.log(T.getBalanceFactor())
 
-console.log('Invert Binary (BFS)')
-T.bfSearch()
+// console.log('Nodes count')
+// T.nodesCount();
 
-T.invert()
-console.log('inverted')
-T.bfSearch()
+// console.log('Invert Binary (BFS)')
+// T.bfSearch()
+
+// T.invert()
+// console.log('inverted')
+// T.bfSearch()
 
 

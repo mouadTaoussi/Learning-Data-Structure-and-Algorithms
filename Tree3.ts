@@ -185,6 +185,11 @@ class BinaryT {
 	invert(){
 		this.invertBT(this.root)
 	}
+
+	// AVL Tree
+	// public getBalanceFactor() :void {
+	// 	console.log(this.heightFromNode() - this.heightFromNode())
+	// }
 }
 
 const T: any = new BinaryT();
