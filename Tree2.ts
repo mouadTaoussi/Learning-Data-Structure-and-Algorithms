@@ -33,10 +33,12 @@ class BinaryTree {
 				this.add(value, root.left);
 				// Rotation AVL
 				const balanceFactor: number = this.getBalanceFactor();
-				console.log('Balance factor - left: ' + balanceFactor)
-				// if (balanceFactor > 1) {
-				// 	console.log('You have surpassed the balance factor!!! at Left: ' + balanceFactor)
-				// }
+				// console.log('Balance factor - left: ' + balanceFactor)
+				if (root.left !== null && balanceFactor > 1) {
+					console.log('You have surpassed the balance factor!!! at Left: ' + balanceFactor)
+					// Rotate
+					root = null;
+				}
 			}
 		}
 		else if (value > root.value) {
@@ -47,10 +49,12 @@ class BinaryTree {
 				this.add(value, root.right);
 				// Rotation AVL
 				const balanceFactor: number = this.getBalanceFactor();
-				console.log('Balance factor - right: ' + balanceFactor)
-				// if (balanceFactor < -1) {
-				// 	console.log('You have surpassed the balance factor!!! at Right: ' + balanceFactor)
-				// }
+				// console.log('Balance factor - right: ' + balanceFactor)
+				if (root.right !== null && balanceFactor < -1) {
+					console.log('You have surpassed the balance factor!!! at Right: ' + balanceFactor)
+					// Rotate
+					root = null;
+				}
 			}
 		}
 	}
@@ -237,9 +241,21 @@ class BinaryTree {
 		return this.heightFromNode(this.min()) - this.heightFromNode(this.max())
 	}
 	// LL
+	LLRotation (node:any) {
+		return root;
+	}
 	// LR
+	LRRotation (node:any) {
+		return root;
+	}
 	// RR
+	RRRotation (node:any) {
+		return root;
+	}
 	// RL
+	RLRotation (node:any) {
+		return root;
+	}
 }
 
 
@@ -252,6 +268,7 @@ T.insert(200)
 T.insert(50)
 T.insert(45)
 T.insert(10)
+// T.insert(5)
 // T.insert(300)
 // T.insert(400)
 // T.insert(500)
@@ -268,15 +285,15 @@ T.insert(10)
 // console.log('BFS')
 // T.bfSearch();
 
-console.log("Minimum value")
-console.log(T.min());
+// console.log("Minimum value")
+// console.log(T.min());
 
-console.log("Maximum value")
-console.log(T.max());
+// console.log("Maximum value")
+// console.log(T.max());
 
-console.log('Height from node 10')
+// console.log('Height from node 10')
 // T.heightFromNodeRec(10)
-console.log(T.heightFromNode(10))
+// console.log(T.heightFromNode(10))
 
 console.log('Balance Factor')
 console.log(T.getBalanceFactor())
