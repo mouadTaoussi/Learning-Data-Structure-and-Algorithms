@@ -3,10 +3,9 @@ class TreeN {
 	private left:  any;
 	private right:  any;
 
-	constructor(value: number, left: any = null, right: any = null) {
+	constructor(value: number) {
 		this.value = value;
-		this.left = left;
-		this.right = right;
+		
 	}
 }
 
