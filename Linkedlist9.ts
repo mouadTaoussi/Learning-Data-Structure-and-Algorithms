@@ -13,7 +13,7 @@ class Users {
 
 
 	prepend (value: any){
-		let current = this.head; 
+		let current: any = this.head; 
 
 
 		if (this.head == null) {
@@ -27,23 +27,23 @@ class Users {
 
 		}
 	}
-	append(value: any){
+	append(value: any): void {
 		if (this.head == null) {
 			this.head = new User(value, null)
 		}else {
 			this.head = new User(value, this.head)
 		}
 	}
-	print() {
-		let current = this.head;
+	print(): void {
+		let current: any = this.head;
 
 		while(current) {
 			console.log(current.data)
 			current = current.next;
 		}
 	}
-	addbetween(value:any,after:any) {
-		let current = this.head;
+	addbetween(value:any,after:any): void {
+		let current: any = this.head;
 
 		if (this.head == null) {
 			this.head = new User(value, null)
@@ -54,21 +54,29 @@ class Users {
 			current.next = new User(value, current.next);
 		}
 	}
-	remove(index: number) {
-		let i: number = 0;
-		let current = this.head;
+	update(older: any, newer: any): void {
+		let current: any = this.head;
+		let previous: any;
 
-		if (index == i) {
-			this.head = this.head.next;
-		}else {
-			while(current){
-				if (index == i) {
-					current = current.next;
-				}
-				current = current.next
-				i++;
-			}
+		while (current.data != older) {
+			previous = current;
+			current = current.next;
 		}
+
+		previous.next = new User(newer, current.next);
+
+	}
+	remove(value: number): void {
+		let i: number = 0;
+		let current: any = this.head;
+		let previous: any;
+
+		while (current.data != value) {
+			previous = current;
+			current = current.next;
+		}
+
+		previous.next = current.next;
 	}
 
 }
@@ -81,5 +89,5 @@ L.prepend(300);
 L.prepend(400); 
 L.append(0);
 L.addbetween(250,200);
-L.remove(2)
+L.update(200,220);
 L.print();
