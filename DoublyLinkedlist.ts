@@ -17,6 +17,7 @@ class Topics {
 	add(value:any): void {
 		if (this.head == null) {
 			this.head = new Topic(value, null, null);
+			// Tail adding 
 			this.tail = this.head;
 		}else {
 			this.insert(value, this.head);
@@ -28,6 +29,7 @@ class Topics {
 
 		if (current.next == null) {
 			current.next = new Topic(value, current, null);
+			// Tail adding
 			this.tail = current.next;
 		}
 		else {
@@ -37,6 +39,7 @@ class Topics {
 	addfirst(value: any) {
 		if (this.head == null) {
 			this.head = new Topic(value, null, null);
+			// Tail adding
 			this.tail = this.head;
 		}else {
 			let current = this.head;
@@ -54,21 +57,26 @@ class Topics {
 		let current: any = this.head;
 		let previous: any = null;
 		
-		while (current) {
-			if (current.data == after) {
-				console.log(1)
-				current.next = new Topic(value, previous, current.next);
-			}else {
-				previous = current;
-				current = current.next;
-
-			}
+		while (current.data != after) {
+			previous = current;
+			current = current.next;
 		}
+		current.next = new Topic(value, previous, current.next);
+
+		//  Tail adding
+		// current = this.tail;
+
+		// while (current.data != after) {
+		// 	// previous = current.prev;
+		// 	current = current.prev;
+		// }
+		// current.next = new Topic(value, current, current.next);
+
 
 	}
 	print() {
 		let current = this.head;
-
+		console.log('Default')
 		while(current) {
 			console.log(current.data);
 			current = current.next;
@@ -76,7 +84,7 @@ class Topics {
 	}
 	printInverse() {
 		let current = this.tail;
-
+		console.log('Inverse')
 		while (current) {
 			console.log(current.data);
 			current = current.prev;
@@ -92,6 +100,6 @@ Lp.add(200);
 Lp.add(300);
 Lp.add(400);
 Lp.addfirst(0)
-// Lp.addBetween(250,100)
+Lp.addBetween(250,100)
 Lp.print();
 Lp.printInverse();
