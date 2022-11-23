@@ -1,7 +1,7 @@
 let array: number[] = [ 2, 5, 3, 8, 6, 4, 1];
 
 
-function  selectionSort( arr: number[]): number[] {
+function  selectionSort(arr: number[]): number[] {
 
 	let current = 0;
 	const length = arr.length-1;
