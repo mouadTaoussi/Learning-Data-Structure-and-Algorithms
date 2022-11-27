@@ -12,6 +12,7 @@ function  selectionSort(arr: number[]): number[] {
 			// code...
 
 			if( arr[current] > arr[i]) {
+				// Swap
 				const greater = arr[current];
 				const smaller = arr[i];
 
