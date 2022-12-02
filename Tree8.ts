@@ -1,13 +1,13 @@
 class Node {
-  data; 
+  data;
   left;
   right;
 
-  constructor(data, left = null, right = null ) {
-    this.data  = data;
-    this.left  = left;
-    this.right  = right;
-  } 
+  constructor(data, left = null, right = null) {
+    this.data = data;
+    this.left = left;
+    this.right = right;
+  }
 }
 
 class BinaryTree {
@@ -25,27 +25,27 @@ class BinaryTree {
   insert(value, node) {
     if (value < node.data) {
       if (node.left == null) {
-        node.left  = new Node(value)
-      }else {
+        node.left = new Node(value)
+      } else {
         this.insert(value, node.left)
       }
     }
     else if (value > node.data) {
       if (node.right == null) {
-        node.right  = new Node(value)
-      }else {
+        node.right = new Node(value)
+      } else {
         this.insert(value, node.right)
       }
     }
   }
 
-  bfs () {
+  bfs() {
     let queue = [this.root]
 
     while (queue.length != 0) {
       const current = queue.shift();
 
-			console.log(current.data)
+      console.log(current.data)
 
       if (current.left) {
         current.left
@@ -71,7 +71,7 @@ class BinaryTree {
     if (node) {
       console.log(node.data);
       this.preorder(node.left)
-      this.preorder(node.right)      
+      this.preorder(node.right)
     }
   }
   inorder(node) {
@@ -80,13 +80,31 @@ class BinaryTree {
       console.log(node.data);
       this.inorder(node.right)
     }
-    
+
   }
   postorder(node) {
     if (node) {
       this.postorder(node.left)
       this.postorder(node.right)
-      console.log(node.data); 
+      console.log(node.data);
+    }
+  }
+  searchValue(value) {
+    this.binarysearch(value, this.root);
+  }
+  binarysearch(value, node) {
+    if (node) {
+      if (value == node.data) {
+        console.log("Found: " + node.data)
+        return
+      }
+      
+      if (value > node.data) {
+        this.binarysearch(value, node.right)
+      }
+      else if (value < node.data) {
+        this.binarysearch(value, node.left)
+      }
     }
   }
   print(type) {
@@ -98,11 +116,11 @@ class BinaryTree {
     }
     else if (type == 'postorder') {
       this.postorder(this.root);
-    }else {
+    } else {
       console.log(this.root)
     }
-   }
-  
+  }
+
 }
 
 
@@ -112,6 +130,7 @@ BT.add(100)
 BT.add(200)
 BT.add(300)
 BT.add(500)
-BT.invertBT();
-BT.print()
+// BT.print()
 // BT.bfs()
+BT.searchValue(200)
+BT.invertBT();
