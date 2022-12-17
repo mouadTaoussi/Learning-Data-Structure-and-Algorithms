@@ -9,7 +9,20 @@ class Graph {
     this.adjList.get(v).push(d);
     this.adjList.get(d).push(v);
   }
+  removeVertex(v) {
+    let neighbors = this.adjList.get(v);
 
+    for (let neighbor in neighbors) {
+      
+    }
+  }
+  removeEdge(v,d) {
+    let v_index = this.adjList.get(v).indexOf(v);
+    let d_index = this.adjList.get(v).indexOf(d);
+
+    this.adjList.get(v).splice(d_index,1)
+    this.adjList.get(d).splice(v_index,1)
+  }
   print() {
     const keys = this.adjList.keys();
     for (var i of keys) {
