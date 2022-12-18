@@ -12,16 +12,53 @@ class Graph {
   removeVertex(v) {
     let neighbors = this.adjList.get(v);
 
-    for (let neighbor in neighbors) {
-      
+    for (let neighbor of neighbors) {
+      let index = this.adjList.get(neighbor).indexOf(v); 
+      this.adjList.get(neighbor).splice(index,1);
     }
+
+    this.adjList.delete(v)
   }
   removeEdge(v,d) {
-    let v_index = this.adjList.get(v).indexOf(v);
+    let v_index = this.adjList.get(d).indexOf(v);
     let d_index = this.adjList.get(v).indexOf(d);
 
     this.adjList.get(v).splice(d_index,1)
     this.adjList.get(d).splice(v_index,1)
+  }
+  depthfirstsearch(start){
+    let visitedNode = []
+    this.dfs(start,visitedNode)
+  }
+  dfs(current,visitedNode){
+    console.log(current)
+
+    visitedNode.push(current)
+
+    let vertices = this.adjList.get(current)
+
+    for (let vertex of vertices) {
+      if (!visitedNode.includes(vertex)) this.dfs(vertex,visitedNode)
+    }
+  }
+  breathfirstsearch(start){
+    let queue = [start];
+    let visitedNode = [];
+
+    while (queue.length > 0){
+      const currentVertex = queue.shift();
+
+      console.log(currentVertex)
+
+      visitedNode.push(currentVertex)
+
+      let vertices = this.adjList.get(currentVertex)
+
+      for (let vertex of vertices) {
+        // code...
+        if (!visitedNode.includes(vertex)) queue.push(vertex)
+      }
+    }
   }
   print() {
     const keys = this.adjList.keys();
@@ -48,11 +85,14 @@ G.addVertex('D')
 G.addVertex('E')
 G.addVertex('F')
 
-G.addEdge('F','A')
-G.addEdge('E','A')
-G.addEdge('D','A')
-// G.addEdge('B','A')
-// G.addEdge('A','B')
+G.addEdge('B','A')
 G.addEdge('C','A')
+G.addEdge('D','A')
+G.addEdge('E','A')
+G.addEdge('F','A')
+// G.removeEdge('C','A')
+// G.removeVertex('D')
 
-G.print()
+// G.depthfirstsearch('A')
+G.breathfirstsearch('A')
+// G.print()
