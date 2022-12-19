@@ -7,7 +7,7 @@ class Graph {
 	}
 	addEdge(v:any,d:any): any {
 		this.adjList.get(v).push(d)
-		this.adjList.get(d).push(d)
+		this.adjList.get(d).push(v)
 	}
 	removeVertex(v:any): any {
 		const neighbors = this.adjList.get(v)
@@ -24,26 +24,52 @@ class Graph {
 		this.adjList.get(d).splice(this.adjList.get(d).indexOf(v),1);
 	}
 	breathfirstsearch(start:any): any {
+    let queue: any = [start];
+		let visitedNode:any = [];
 
+		while (queue.length > 0) {
+			const current = queue.shift();
+
+			console.log(current)
+
+			visitedNode.push(current)
+			
+			const vertices = this.adjList.get(current);
+
+			for (let vertex of vertices) {
+				if (!visitedNode.includes(vertex)) {
+			  	queue.push(vertex)
+        }
+			}
+		}
 	}
 	depthfirstsearch(start:any): any {
-		
+		const visitedNode: any = [];
+		this.dfs(start, visitedNode)
 	}
-	dfs(): any {
+	dfs(current:any, visitedNode:any): any {
+		console.log(current)
+		
+    visitedNode.push(current)
+		
+    const vertices = this.adjList.get(current);
 
+    for (let vertex of vertices) {
+			if (!visitedNode.includes(vertex)) {
+			  this.dfs(vertex, visitedNode)
+      }
+		}
 	}
 	print(): any {
 		const keys = this.adjList.keys();
-
 		for (let key of keys) {
-
 			let current = this.adjList.get(key);
 			let conc = '';
-
+      
 			for (let vertex of current) {
-				current += " " + vertex
+				conc += " " + vertex
 			}
-			console.log(current + "=>" + conc)
+			console.log(key + " <->" + conc)
 		}
 	}
 }
@@ -63,5 +89,8 @@ G.addEdge('C','A')
 G.addEdge('D','A')
 G.addEdge('E','A')
 G.addEdge('F','A')
-
+// G.removeEdge('F','A')
+// G.removeVertex('B')
 G.print()
+// G.depthfirstsearch('A');
+G.breathfirstsearch('A');
