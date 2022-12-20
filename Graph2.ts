@@ -29,18 +29,58 @@ class Graph {
 		this.adjList.get(v).splice(d_index, 1)
 		this.adjList.get(d).splice(v_index, 1)
 	}
-  print () {
-    const keys = this.adjList.keys()
-    
-    for (let key of keys) {
-      const vertices = this.adjList.get(key)
-      let conc = '';
-      for (let vertex of vertices) {
-        conc += ' '+vertex
-      }
-      console.log(key+ "<->"+conc)
-    }
-  }
+
+
+	depthfirstsearch(start:any){
+		this.dfs(start,[])
+	}
+	dfs(current:any, visitedNode: any){
+		
+		console.log(current)
+		
+		visitedNode.push(current)
+		
+		const vertices = this.adjList.get(current)
+		
+		for (let vertex of vertices) {
+			if (!visitedNode.includes(vertex)) {
+				this.dfs(vertex, visitedNode)
+			}
+		}
+	}
+	breathfisrtsearch(start:any){
+		let queue = [start];
+		let visitedNode:any = [];
+
+		while(queue.length > 0) {
+			const current = queue.shift();
+
+			console.log(current)
+
+			visitedNode.push(current)
+
+			const vertices = this.adjList.get(current);
+
+			for (let vertex of vertices) {
+				if (!visitedNode.includes(vertex)) {
+					queue.push(vertex)
+				}
+			}
+		}
+	}
+
+	print () {
+		const keys = this.adjList.keys()
+
+		for (let key of keys) {
+			const vertices = this.adjList.get(key)
+			let conc = '';
+			for (let vertex of vertices) {
+				conc += ' '+vertex
+			}
+			console.log(key+ "<->"+conc)
+		}
+	}
 
 } 
 
